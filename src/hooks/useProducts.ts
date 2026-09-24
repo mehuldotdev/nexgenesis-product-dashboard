@@ -23,22 +23,19 @@ export function useProducts(params: ProductFilterParams): UseProductsResult {
 
   const { applyOverrides } = useProductOverrides();
 
-  // Track active request ID to discard out-of-order race condition responses
+  // Track request IDs to discard out-of-order responses from slow searches
   const activeRequestIdRef = useRef<number>(0);
   const abortControllerRef = useRef<AbortController | null>(null);
 
   const { page, limit, search, category, sortBy, order, delay } = params;
 
   const loadData = useCallback(async () => {
-    // 1. Cancel previous in-flight request if still running
     if (abortControllerRef.current) {
       abortControllerRef.current.abort();
     }
 
     const controller = new AbortController();
     abortControllerRef.current = controller;
-
-    // Increment request ID sequence
     const currentRequestId = ++activeRequestIdRef.current;
 
     setLoading(true);
@@ -50,7 +47,7 @@ export function useProducts(params: ProductFilterParams): UseProductsResult {
         controller.signal
       );
 
-      // Verify this is still the latest request (guarantees race condition safety)
+      // Only update state if this is still the most recent request
       if (currentRequestId === activeRequestIdRef.current) {
         const { products: mergedProducts, total: adjustedTotal } =
           applyOverrides(data.products, data.total, category, search);
@@ -60,7 +57,6 @@ export function useProducts(params: ProductFilterParams): UseProductsResult {
         setLoading(false);
       }
     } catch (err: unknown) {
-      // Ignore cancellations (from AbortController when user types fast)
       const errorObj = err as { name?: string; code?: string; message?: string };
       if (
         errorObj?.name === "CanceledError" ||
@@ -92,7 +88,6 @@ export function useProducts(params: ProductFilterParams): UseProductsResult {
     loadData();
 
     return () => {
-      // Abort request on unmount or query change
       if (abortControllerRef.current) {
         abortControllerRef.current.abort();
       }

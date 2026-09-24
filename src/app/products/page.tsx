@@ -20,7 +20,6 @@ function ProductDashboardContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  // 1. Sanitize query params from URL (resilient to ?page=abc, ?page=9999, etc.)
   const rawPage = parseInt(searchParams.get("page") || "1", 10);
   const safePage = isNaN(rawPage) || rawPage < 1 ? 1 : rawPage;
 
@@ -33,7 +32,6 @@ function ProductDashboardContent() {
   const order = (searchParams.get("order") as SortOrder) || "asc";
   const delayParam = parseInt(searchParams.get("delay") || "0", 10);
 
-  // 2. Fetch categories list for dropdown filter
   const [categories, setCategories] = useState<CategoryItem[]>([]);
   useEffect(() => {
     fetchCategories()
@@ -41,7 +39,6 @@ function ProductDashboardContent() {
       .catch((err) => console.error("Failed to load categories:", err));
   }, []);
 
-  // 3. Custom product fetch hook with AbortController, race condition prevention & overrides
   const { products, total, loading, error, retry } = useProducts({
     page: safePage,
     limit: safeLimit,
@@ -58,7 +55,6 @@ function ProductDashboardContent() {
     deleteLocalProduct,
   } = useProductOverrides();
 
-  // 4. Modal States: Add / Edit / Delete
   const [isFormModalOpen, setIsFormModalOpen] = useState(false);
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
 
@@ -66,7 +62,6 @@ function ProductDashboardContent() {
   const [productToDelete, setProductToDelete] = useState<Product | null>(null);
   const [isDeleting, setIsDeleting] = useState(false);
 
-  // 5. Update URL params helper
   const updateUrl = useCallback(
     (updates: Record<string, string | number | null>) => {
       const params = new URLSearchParams(searchParams.toString());
@@ -143,17 +138,13 @@ function ProductDashboardContent() {
 
   const handleFormSubmit = async (formData: ProductFormData) => {
     if (editingProduct) {
-      // 1. Send update to DummyJSON API
       const updated = await updateProduct(editingProduct.id, formData);
-      // 2. Persist in local session overrides
       updateLocalProduct(editingProduct.id, {
         ...formData,
         ...updated,
       });
     } else {
-      // 1. Send create to DummyJSON API
       const created = await createProduct(formData);
-      // 2. Prepend to local session overrides
       addLocalProduct({
         ...created,
         id: created.id || Date.now(),
@@ -173,9 +164,7 @@ function ProductDashboardContent() {
     setIsDeleting(true);
 
     try {
-      // 1. Call DummyJSON delete endpoint
       await deleteProduct(productToDelete.id);
-      // 2. Apply deletion override
       deleteLocalProduct(productToDelete.id);
       setIsDeleteDialogOpen(false);
       setProductToDelete(null);

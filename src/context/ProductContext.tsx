@@ -131,12 +131,8 @@ export function ProductProvider({ children }: { children: React.ReactNode }) {
     category?: string,
     search?: string
   ): { products: Product[]; total: number } => {
-    // 1. Filter out deleted items from server response
-    let result = apiProducts.filter(
-      (p) => !deletedProductIds.includes(p.id)
-    );
+    let result = apiProducts.filter((p) => !deletedProductIds.includes(p.id));
 
-    // 2. Apply in-place edits to items
     result = result.map((p) => {
       if (updatedProducts[p.id]) {
         return { ...p, ...updatedProducts[p.id] };
@@ -144,7 +140,6 @@ export function ProductProvider({ children }: { children: React.ReactNode }) {
       return p;
     });
 
-    // 3. Match added products against active search/category filters
     const matchingAdded = addedProducts.filter((item) => {
       if (deletedProductIds.includes(item.id)) return false;
       if (category && item.category.toLowerCase() !== category.toLowerCase()) {
@@ -160,7 +155,6 @@ export function ProductProvider({ children }: { children: React.ReactNode }) {
       return true;
     });
 
-    // Prepend newly added items that aren't already in the list
     const existingIds = new Set(result.map((p) => p.id));
     const toPrepend = matchingAdded.filter((p) => !existingIds.has(p.id));
 
