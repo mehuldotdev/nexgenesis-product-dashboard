@@ -107,7 +107,7 @@ export default function LoginPage() {
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 placeholder="emilys"
-                className="w-full rounded-lg border border-zinc-200 bg-zinc-50/50 py-2.5 pl-9 pr-3 text-xs text-zinc-900 transition focus:border-zinc-900 focus:bg-white focus:outline-none focus:ring-1 focus:ring-zinc-900 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-100"
+                className="w-full rounded-lg border border-zinc-200 bg-zinc-50/50 py-2.5 pl-9 pr-3 text-xs text-zinc-900 transition focus:border-zinc-900 focus:bg-white focus:outline-none focus:ring-1 focus:ring-zinc-900 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-100 dark:focus:bg-zinc-800"
               />
             </div>
           </div>
@@ -132,7 +132,7 @@ export default function LoginPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••••"
-                className="w-full rounded-lg border border-zinc-200 bg-zinc-50/50 py-2.5 pl-9 pr-3 text-xs text-zinc-900 transition focus:border-zinc-900 focus:bg-white focus:outline-none focus:ring-1 focus:ring-zinc-900 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-100"
+                className="w-full rounded-lg border border-zinc-200 bg-zinc-50/50 py-2.5 pl-9 pr-3 text-xs text-zinc-900 transition focus:border-zinc-900 focus:bg-white focus:outline-none focus:ring-1 focus:ring-zinc-900 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-100 dark:focus:bg-zinc-800"
               />
             </div>
           </div>

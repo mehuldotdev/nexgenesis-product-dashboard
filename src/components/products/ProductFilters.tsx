@@ -67,7 +67,7 @@ export function ProductFilters({
             value={searchInput}
             onChange={(e) => setSearchInput(e.target.value)}
             placeholder="Search by title or description..."
-            className="w-full rounded-lg border border-zinc-200 bg-zinc-50/50 py-2 pl-9 pr-8 text-xs text-zinc-900 placeholder-zinc-400 transition focus:border-zinc-900 focus:bg-white focus:outline-none focus:ring-1 focus:ring-zinc-900 dark:border-zinc-700 dark:bg-zinc-800/60 dark:text-zinc-100 dark:placeholder-zinc-500 dark:focus:border-zinc-300 dark:focus:ring-zinc-300"
+            className="w-full rounded-lg border border-zinc-200 bg-zinc-50/50 py-2 pl-9 pr-8 text-xs text-zinc-900 placeholder-zinc-400 transition focus:border-zinc-900 focus:bg-white focus:outline-none focus:ring-1 focus:ring-zinc-900 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-100 dark:placeholder-zinc-500 dark:focus:border-zinc-300 dark:focus:ring-zinc-300 dark:focus:bg-zinc-800"
           />
           {searchInput && (
             <button
@@ -88,7 +88,7 @@ export function ProductFilters({
           <select
             value={category}
             onChange={(e) => onCategoryChange(e.target.value)}
-            className="w-full appearance-none rounded-lg border border-zinc-200 bg-zinc-50/50 py-2 pl-9 pr-8 text-xs text-zinc-900 transition focus:border-zinc-900 focus:bg-white focus:outline-none focus:ring-1 focus:ring-zinc-900 dark:border-zinc-700 dark:bg-zinc-800/60 dark:text-zinc-100"
+            className="w-full appearance-none rounded-lg border border-zinc-200 bg-zinc-50/50 py-2 pl-9 pr-8 text-xs text-zinc-900 transition focus:border-zinc-900 focus:bg-white focus:outline-none focus:ring-1 focus:ring-zinc-900 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-100 dark:focus:border-zinc-300 dark:focus:ring-zinc-300 dark:focus:bg-zinc-800"
           >
             <option value="">All Categories</option>
             {categories.map((cat) => (
@@ -109,7 +109,7 @@ export function ProductFilters({
             onChange={(e) =>
               onSortChange(e.target.value as SortField, order || "asc")
             }
-            className="w-full appearance-none rounded-lg border border-zinc-200 bg-zinc-50/50 py-2 pl-9 pr-8 text-xs text-zinc-900 transition focus:border-zinc-900 focus:bg-white focus:outline-none focus:ring-1 focus:ring-zinc-900 dark:border-zinc-700 dark:bg-zinc-800/60 dark:text-zinc-100"
+            className="w-full appearance-none rounded-lg border border-zinc-200 bg-zinc-50/50 py-2 pl-9 pr-8 text-xs text-zinc-900 transition focus:border-zinc-900 focus:bg-white focus:outline-none focus:ring-1 focus:ring-zinc-900 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-100 dark:focus:border-zinc-300 dark:focus:ring-zinc-300 dark:focus:bg-zinc-800"
           >
             <option value="">Default Sorting</option>
             <option value="title">Sort by Title</option>
