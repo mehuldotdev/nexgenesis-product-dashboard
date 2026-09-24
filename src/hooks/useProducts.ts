@@ -27,6 +27,8 @@ export function useProducts(params: ProductFilterParams): UseProductsResult {
   const activeRequestIdRef = useRef<number>(0);
   const abortControllerRef = useRef<AbortController | null>(null);
 
+  const { page, limit, search, category, sortBy, order, delay } = params;
+
   const loadData = useCallback(async () => {
     // 1. Cancel previous in-flight request if still running
     if (abortControllerRef.current) {
@@ -43,17 +45,15 @@ export function useProducts(params: ProductFilterParams): UseProductsResult {
     setError(null);
 
     try {
-      const data = await fetchProducts(params, controller.signal);
+      const data = await fetchProducts(
+        { page, limit, search, category, sortBy, order, delay },
+        controller.signal
+      );
 
       // Verify this is still the latest request (guarantees race condition safety)
       if (currentRequestId === activeRequestIdRef.current) {
         const { products: mergedProducts, total: adjustedTotal } =
-          applyOverrides(
-            data.products,
-            data.total,
-            params.category,
-            params.search
-          );
+          applyOverrides(data.products, data.total, category, search);
 
         setProducts(mergedProducts);
         setTotal(adjustedTotal);
@@ -78,14 +78,13 @@ export function useProducts(params: ProductFilterParams): UseProductsResult {
       }
     }
   }, [
-    params.page,
-    params.limit,
-    params.search,
-    params.category,
-    params.sortBy,
-    params.order,
-    params.delay,
-    retryCount,
+    page,
+    limit,
+    search,
+    category,
+    sortBy,
+    order,
+    delay,
     applyOverrides,
   ]);
 
@@ -98,7 +97,7 @@ export function useProducts(params: ProductFilterParams): UseProductsResult {
         abortControllerRef.current.abort();
       }
     };
-  }, [loadData]);
+  }, [loadData, retryCount]);
 
   const retry = useCallback(() => {
     setRetryCount((prev) => prev + 1);

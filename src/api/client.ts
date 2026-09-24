@@ -34,6 +34,7 @@ apiClient.interceptors.response.use(
         localStorage.removeItem("auth_token");
         localStorage.removeItem("auth_user");
         if (window.location.pathname !== "/login") {
+          // eslint-disable-next-line @next/next/no-location-assign-relative-destination
           window.location.href = "/login?session_expired=true";
         }
       }
