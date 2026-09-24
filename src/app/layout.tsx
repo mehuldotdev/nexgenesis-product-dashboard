@@ -16,8 +16,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Product Admin Dashboard",
-  description: "Product inventory, search, and catalog management dashboard",
+  title: "NexGenesis Admin - Product Dashboard",
+  description: "Product inventory, search, and catalog management dashboard for NexGenesis",
 };
 
 export default function RootLayout({

@@ -21,7 +21,7 @@ export function Navbar() {
           <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-zinc-900 text-white shadow-sm dark:bg-zinc-100 dark:text-zinc-900">
             <Package className="h-5 w-5" />
           </div>
-          <span className="text-lg font-bold tracking-tight">Admin<span className="text-zinc-500 font-normal">Hub</span></span>
+          <span className="text-lg font-bold tracking-tight">NexGenesis <span className="text-zinc-500 font-normal text-sm">Admin</span></span>
         </Link>
 
         <div className="flex items-center gap-4">

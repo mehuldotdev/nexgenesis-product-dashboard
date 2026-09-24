@@ -1,6 +1,6 @@
-# Product Admin Dashboard
+# NexGenesis - Product Admin Dashboard
 
-A responsive product management dashboard using the [DummyJSON](https://dummyjson.com) API, built with Next.js (App Router), Tailwind CSS, and Axios.
+A responsive product management dashboard developed for the NexGenesis frontend assignment, built with Next.js (App Router), Tailwind CSS, and Axios consuming the [DummyJSON](https://dummyjson.com) API.
 
 ## Quick Start
 
